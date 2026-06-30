@@ -35,6 +35,16 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
+        <Button 
+            Text="Obtener ubicación"
+            Command="{Binding ObtenerUbicacionCommand}" />
+
+        <Label 
+            Text="{Binding Ubicacion}"
+            FontSize="14"
+            TextColor="DarkGreen"
+            FontAttributes="Bold" />
+
     </VerticalStackLayout>
 
 </ContentPage>
