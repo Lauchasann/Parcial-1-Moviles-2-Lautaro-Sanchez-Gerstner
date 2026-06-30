@@ -15,6 +15,8 @@ namespace Parcial1.ViewModels
             _postService = new PostService();
         }
 
+        public Action<Post> DetalleSolicitado;
+
         [ObservableProperty]
         private ObservableCollection<Post> posts = new();
 
@@ -45,14 +47,12 @@ namespace Parcial1.ViewModels
         }
 
         [RelayCommand]
-        public async Task IrADetalle(Post post)
+        public void IrADetalle(Post post)
         {
             if (post == null)
                 return;
 
-            await Application.Current.MainPage.Navigation.PushAsync(
-                new Views.DetailPage(post)
-            );
+            DetalleSolicitado?.Invoke(post);
         }
     }
 }
