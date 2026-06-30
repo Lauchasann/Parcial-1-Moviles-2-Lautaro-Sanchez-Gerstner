@@ -1,14 +1,20 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Parcial1.Models;
-using Parcial1.Models;
+using Parcial1.Services;
 using System.Collections.ObjectModel;
-using System.Net.Http.Json;
 
 namespace Parcial1.ViewModels
 {
     public partial class MainViewModel : ObservableObject
     {
+        private readonly PostService _postService;
+
+        public MainViewModel()
+        {
+            _postService = new PostService();
+        }
+
         [ObservableProperty]
         private ObservableCollection<Post> posts = new();
 
@@ -22,8 +28,7 @@ namespace Parcial1.ViewModels
             {
                 Mensaje = "Cargando datos...";
 
-                var httpClient = new HttpClient();
-                var resultado = await httpClient.GetFromJsonAsync<List<Post>>("https://jsonplaceholder.typicode.com/posts");
+                var resultado = await _postService.GetPostsAsync();
 
                 Posts = new ObservableCollection<Post>(resultado);
 
@@ -45,7 +50,9 @@ namespace Parcial1.ViewModels
             if (post == null)
                 return;
 
-            await Application.Current.MainPage.Navigation.PushAsync(new Views.DetailPage(post));
+            await Application.Current.MainPage.Navigation.PushAsync(
+                new Views.DetailPage(post)
+            );
         }
     }
 }
