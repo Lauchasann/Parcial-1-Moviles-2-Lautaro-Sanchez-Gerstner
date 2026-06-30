@@ -10,3 +10,5 @@ public partial class MainPage : ContentPage
         BindingContext = new MainViewModel();
     }
 }
+
+// Inicio del segundo parcial
